@@ -14,14 +14,21 @@ def measure(argument: Argument) -> Optional[List[BigFileProperty]]:
 
 
 def recursive_measure(argument: Argument, base_dir: str, current_directory: str) -> List[BigFileProperty]:
-    children = [current_directory + os.pathsep + x for x in os.listdir(current_directory)]
+    children = [current_directory + os.sep + x for x in os.listdir(current_directory)]
     files = [x for x in children if os.path.isfile(x)]
     dirs = [x for x in children if os.path.isdir(x)]
 
     properties = []
     for file in files:
         partial_infos = [x.measure(file, argument) for x in measurers]
-        properties.append(BigFileProperty(file.removeprefix(base_dir), partial_infos))
+        non_filtered_infos = list(filter(lambda x: x is not None, partial_infos))
+        if len(non_filtered_infos) > 0:
+            properties.append(
+                BigFileProperty(
+                    file.removeprefix(base_dir),
+                    non_filtered_infos
+                )
+            )
 
     for dir in dirs:
         properties += recursive_measure(argument, base_dir, dir)
