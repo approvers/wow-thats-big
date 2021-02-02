@@ -2,7 +2,7 @@ import os
 from typing import List, Optional
 
 from src.core.type.argument import Argument
-from src.core.type.bigfileproperty import BigFileProperty
+from src.core.type.big_file_property import BigFileProperty
 from src.core.measurer.measurer_list import measurers
 
 
