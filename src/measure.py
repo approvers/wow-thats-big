@@ -1,9 +1,9 @@
 import os
 from typing import List, Optional
 
-from src.core.type.argument import Argument
-from src.core.type.big_file_property import BigFileProperty
-from src.core.measurer.measurer_list import measurers
+from src.type.argument import Argument
+from src.type.big_file_property import BigFileProperty
+from src.measurer.measurer_list import measurers
 
 
 def measure(argument: Argument) -> Optional[List[BigFileProperty]]:

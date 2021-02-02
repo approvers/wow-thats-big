@@ -1,7 +1,7 @@
 import unittest
 
-from src.core.measurer.measurers.filesize import FileSizeMeasurer
-from src.core.type.argument import Argument
+from src.measurer.measurers.filesize import FileSizeMeasurer
+from src.type.argument import Argument
 
 
 class FileSizeMeasurerTest(unittest.TestCase):

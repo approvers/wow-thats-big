@@ -1,10 +1,10 @@
 import math
 import os
-from typing import Union, TextIO, BinaryIO, Optional
+from typing import Optional
 
-from src.core.measurer.abst_measurer import AbstractMeasurer
-from src.core.type.argument import Argument
-from src.core.type.big_file_property import PartialBigFileProperty
+from src.measurer.abst_measurer import AbstractMeasurer
+from src.type.argument import Argument
+from src.type.big_file_property import PartialBigFileProperty
 
 
 class FileSizeMeasurer(AbstractMeasurer):

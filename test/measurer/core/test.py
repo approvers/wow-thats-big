@@ -1,7 +1,7 @@
 import unittest
 
-from src.core.measure import measure
-from src.core.type.argument import Argument
+from src.measure import measure
+from src.type.argument import Argument
 
 
 class CoreTest(unittest.TestCase):
