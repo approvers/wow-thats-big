@@ -1,18 +1,14 @@
 import unittest
 
-from src.measure import measure
+from src.measurer.measurers.filesize import FileSizeMeasurer
 from src.type.argument import Argument
 
 
-class CoreTest(unittest.TestCase):
+class FileSizeMeasurerTest(unittest.TestCase):
 
-    def test_measure(self):
-        arg = Argument(
-            directory="testcase",
-            min_line=100,
-            min_file_size_kb=512
-        )
-        big_files = measure(arg)
-        self.assertEqual(len(big_files), 3)
-        for file in big_files:
-            self.assertTrue("not_big" not in file.path and file.path.endswith("big"))
+    def test_big(self):
+        measurer = FileSizeMeasurer()
+        result = measurer.measure("testcase", Argument(directory="", min_file_size_kb=512, min_line=-1))
+        self.assertIsNotNone(result)
+        self.assertEqual(result.caption, "循環的複雑度")
+        self.assertEqual(result.info, "1.0 MB")
