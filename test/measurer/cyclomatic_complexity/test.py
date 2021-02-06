@@ -4,8 +4,7 @@ from src.measurer.measurers.filesize import FileSizeMeasurer
 from src.type.argument import Argument
 
 
-class FileSizeMeasurerTest(unittest.TestCase):
-
+class CyclomaticComplexityMeasurerTest(unittest.TestCase):
     def test_not_big(self):
         measurer = FileSizeMeasurer()
         result = measurer.measure(
