@@ -30,5 +30,5 @@ class CyclomaticComplexityMeasurerTest(unittest.TestCase):
             )
         )
         self.assertIsNotNone(result)
-        self.assertEqual(result.caption, "循環的複雑度(平均)")
+        self.assertEqual(result.caption, "循環的複雑度 (平均)")
         self.assertEqual(float(result.info), 18)
