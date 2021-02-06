@@ -9,8 +9,8 @@ from src.type.big_file_property import PartialBigFileProperty
 
 class CyclomaticComplexityMeasurer(AbstractMeasurer):
     def measure(self, full_path: str, argument: Argument) -> Optional[PartialBigFileProperty]:
-        analyze_result = lizard.analyze_files(full_path)
-        function_list: List[lizard.FunctionInfo] = analyze_result["function_list"]
+        analyze_result: lizard.FileInformation = lizard.analyze_file(full_path)
+        function_list: List[lizard.FunctionInfo] = analyze_result.function_list
         avg_cyclocplx = sum([x.cyclomatic_complexity for x in function_list]) / len(function_list)
 
         if avg_cyclocplx > argument.min_cyclomatic_complexity:
