@@ -1,16 +1,23 @@
 import math
 import os
-from typing import Optional
+from typing import Optional, Dict, List
 
 from src.measurer.abst_measurer import AbstractMeasurer
-from src.type.argument import Argument
+from src.type.argument_definition import ArgumentDefinition
 from src.type.big_file_property import PartialBigFileProperty
 
 
 class FileSizeMeasurer(AbstractMeasurer):
-    def measure(self, full_path: str, argument: Argument) -> Optional[PartialBigFileProperty]:
+    MIN_FILE_SIZE_KB = "min_file_size_kb"
+
+    def get_required_argument(self) -> List[ArgumentDefinition]:
+        return [
+            ArgumentDefinition(FileSizeMeasurer.MIN_FILE_SIZE_KB, int, 512)
+        ]
+
+    def measure(self, full_path: str, arguments: Dict) -> Optional[PartialBigFileProperty]:
         size = os.path.getsize(full_path)
-        if size > argument.min_file_size_kb * 1024:
+        if size > arguments[FileSizeMeasurer.MIN_FILE_SIZE_KB] * 1024:
             return PartialBigFileProperty(
                 caption="ファイルサイズ",
                 info=get_human_readable_filesize(size)
