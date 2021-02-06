@@ -16,4 +16,4 @@ class CoreTest(unittest.TestCase):
         big_files = measure(arg)
         self.assertEqual(len(big_files), 4)
         for file in big_files:
-            self.assertTrue("not_big" not in file.path and file.path.endswith("big"))
+            self.assertTrue("not_big" not in file.path and "big" in file.path)
