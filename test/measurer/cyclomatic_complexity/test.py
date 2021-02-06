@@ -1,12 +1,12 @@
 import unittest
 
-from src.measurer.measurers.filesize import FileSizeMeasurer
+from src.measurer.measurers.cyclomatic_complexity import CyclomaticComplexityMeasurer
 from src.type.argument import Argument
 
 
 class CyclomaticComplexityMeasurerTest(unittest.TestCase):
     def test_not_big(self):
-        measurer = FileSizeMeasurer()
+        measurer = CyclomaticComplexityMeasurer()
         result = measurer.measure(
             "testcase/not_big.py",
             Argument(
@@ -19,7 +19,7 @@ class CyclomaticComplexityMeasurerTest(unittest.TestCase):
         self.assertIsNone(result)
 
     def test_big(self):
-        measurer = FileSizeMeasurer()
+        measurer = CyclomaticComplexityMeasurer()
         result = measurer.measure(
             "testcase/musical_typer_main.py",
             Argument(
