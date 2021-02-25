@@ -1,7 +1,6 @@
 import unittest
 
 from src.measurer.measurers.cyclomatic_complexity import CyclomaticComplexityMeasurer
-from src.type.argument import Argument
 
 
 class CyclomaticComplexityMeasurerTest(unittest.TestCase):
@@ -9,12 +8,7 @@ class CyclomaticComplexityMeasurerTest(unittest.TestCase):
         measurer = CyclomaticComplexityMeasurer()
         result = measurer.measure(
             "testcase/not_big.py",
-            Argument(
-                directory="",
-                min_file_size_kb=512,
-                min_line=-1,
-                min_cyclomatic_complexity=15
-            )
+            {CyclomaticComplexityMeasurer.MIN_COMPLEXITY: 15.0}
         )
         self.assertIsNone(result)
 
@@ -22,12 +16,7 @@ class CyclomaticComplexityMeasurerTest(unittest.TestCase):
         measurer = CyclomaticComplexityMeasurer()
         result = measurer.measure(
             "testcase/musical_typer_main.py",
-            Argument(
-                directory="",
-                min_file_size_kb=512,
-                min_line=-1,
-                min_cyclomatic_complexity=15
-            )
+            {CyclomaticComplexityMeasurer.MIN_COMPLEXITY: 15.0}
         )
         self.assertIsNotNone(result)
         self.assertEqual(result.caption, "循環的複雑度 (平均)")
