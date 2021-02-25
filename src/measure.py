@@ -39,6 +39,9 @@ def recursive_measure(argument_table: Dict, base_dir: str, current_directory: st
             )
 
     for dir in dirs:
+        if dir.replace(base_dir, "", 1).replace(os.sep, "", 1).startswith("."):
+            print("   " + dir + " ... Skipping due to hide folder")
+            continue
         properties += recursive_measure(argument_table, base_dir, dir)
 
     return properties
