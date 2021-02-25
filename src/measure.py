@@ -10,6 +10,7 @@ def measure(directory: str, argument_table: Dict) -> Optional[List[BigFileProper
     if not os.path.isdir(directory):
         return None
 
+    print(f"Scanning {directory}...")
     return recursive_measure(argument_table, directory, directory)
 
 
@@ -17,11 +18,13 @@ def recursive_measure(argument_table: Dict, base_dir: str, current_directory: st
     children = [current_directory + os.sep + x for x in os.listdir(current_directory)]
     files = [x for x in children if os.path.isfile(x)]
     dirs = [x for x in children if os.path.isdir(x)]
-
     properties = []
+
     for file in files:
+        print(f"   {file}")
         partial_infos = []
         for measurer in measurers:
+            print(f"      => {str(type(measurer))}")
             args = generate_argument(measurer.get_required_argument(), argument_table)
             partial_info = measurer.measure(file, args)
             if partial_info is not None:

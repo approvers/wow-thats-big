@@ -1,6 +1,12 @@
 name: "Wow, that's big!"
 description: "Says 'wow that's big' when 'big' files are found."
 
+inputs:
+  root_directory:
+    description: "The directory path to measure. Root of repository or current directory is used when omitted."
+    required: true
+    default: "."
+
 runs:
   using: "docker"
   image: "Dockerfile"
