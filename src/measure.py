@@ -64,6 +64,9 @@ def generate_argument(required_argument: List[ArgumentDefinition], argument_tabl
         provided_type = type(generated_argument[arg])
         required_type = required_argument_table[arg].arg_type
         if provided_type != required_type:
-            raise TypeError(f"Type does not match to requirements: '{arg}' ({provided_type} != {required_type})")
+            try:
+                generated_argument[arg] = required_type(generated_argument[arg])
+            except Exception:
+                raise TypeError(f"Type does not match to requirements: '{arg}' ({provided_type} != {required_type})")
 
     return generated_argument
