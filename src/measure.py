@@ -20,11 +20,20 @@ def recursive_measure(argument_table: Dict, base_dir: str, current_directory: st
 
     properties = []
     for file in files:
+        partial_infos = []
         for measurer in measurers:
             args = generate_argument(measurer.get_required_argument(), argument_table)
-            partial_info = measurer.measure(file, argument_table)
+            partial_info = measurer.measure(file, args)
             if partial_info is not None:
-                properties.append(partial_info)
+                partial_infos.append(partial_info)
+
+        if len(partial_infos) != 0:
+            properties.append(
+                BigFileProperty(
+                    path=file,
+                    info_list=partial_infos
+                )
+            )
 
     for dir in dirs:
         properties += recursive_measure(argument_table, base_dir, dir)
