@@ -1,0 +1,6 @@
+name: "Wow, that's big!"
+description: "Says 'wow that's big' when 'big' files are found."
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
