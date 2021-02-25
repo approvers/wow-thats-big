@@ -7,6 +7,5 @@ COPY src /app/src
 WORKDIR /app
 
 RUN pip3 install pipenv
-RUN pipenv install
-
-ENTRYPOINT ["pipenv", "run", "python3", "main.py"]
+RUN pipenv install --system
+ENTRYPOINT ["python3", "main.py"]
