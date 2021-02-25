@@ -7,7 +7,7 @@ def main():
 
     print("--- Provided Environment Variables List ---")
     for env in os.environ.keys():
-        print(f"  {env}{max_length - len(env)} : {os.environ[env]}")
+        print(f"  {env}{' ' * (max_length - len(env))} : {os.environ[env]}")
 
 
 if __name__ == '__main__':
