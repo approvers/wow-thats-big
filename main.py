@@ -1,9 +1,8 @@
 import os
-import pathlib
-import re
 import sys
 
 from src import measure
+from src.report import generate_report_message
 
 
 def main():
@@ -21,19 +20,11 @@ def main():
     if not os.path.isdir(scanning_directory):
         raise RuntimeError(f"The provided root directory is not found or directory: {scanning_directory}")
 
-    print(scanning_directory)
     argument_table = {k.lower(): os.environ[k] for k in os.environ if not k.lower().startswith("github")}
     result = measure.measure(scanning_directory, argument_table)
+
     print()
-    print("Result")
-    print("------")
-    for file in result:
-        file_path = file.path.replace(root_dir, "", 1).replace(os.sep, "", 1)
-        file_path = re.sub(f"\\{os.sep}+", os.sep, file_path)
-        print(file_path)
-        max_len = max([len(x.caption) for x in file.info_list])
-        for info in file.info_list:
-            print(f"   {info.caption}{' ' * (max_len - len(info.caption))} | {info.info}")
+    print(generate_report_message(root_dir, result))
 
 
 if __name__ == '__main__':
