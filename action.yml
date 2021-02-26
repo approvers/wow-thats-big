@@ -10,6 +10,9 @@ inputs:
     description: "Expand '詳細' automatically. 'true' is used when the input is omitted for cannot be parsed as boolean."
     required: true
     default: "true"
+  token:
+    description: "The token to comment to the pull request or commit. Usually '${{ secrets.GITHUB_TOKEN }}' is appropriate as the value."
+    required: true
 
 runs:
   using: "docker"

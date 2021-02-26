@@ -23,6 +23,7 @@ jobs:
         uses: ./
         with:
           root_directory: test
+          token: ${{ secrets.GITHUB_TOKEN }}
         env:
           MIN_CYCLOMATIC_COMPLEXITY: 5.0
           MIN_FILE_SIZE_KB: 512
