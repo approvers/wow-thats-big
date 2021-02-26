@@ -6,6 +6,16 @@ from src.report import generate_report_message
 
 
 def main():
+
+    environment_keys = os.environ.keys()
+    max_length = max([len(x) for x in environment_keys])
+
+    print("--- Provided Environment Variables List ---")
+    for env in os.environ.keys():
+        print(f"  {env}{' ' * (max_length - len(env))} : {os.environ[env]}")
+
+    return
+
     if "GITHUB_WORKSPACE" in os.environ:
         root_dir = os.environ["GITHUB_WORKSPACE"]
     else:
@@ -27,8 +37,12 @@ def main():
     if len(sys.argv) > 2 and sys.argv[2].lower() in ["true", "false"]:
         open_auto = (sys.argv[2].lower() == "true")
 
-    print()
-    print(generate_report_message(root_dir, result, open_auto))
+    text = generate_report_message(root_dir, result, open_auto)
+    if "CI" in os.environ and os.environ["CI"] == "true":
+        comment_to_github(text)
+    else:
+        print()
+        print(text)
 
 
 if __name__ == '__main__':
