@@ -6,9 +6,14 @@ inputs:
     description: "The directory path to measure. Root of repository or current directory is used when omitted."
     required: true
     default: "."
+  expand_result:
+    description: "Expand '詳細' automatically. 'true' is used when the input is omitted for cannot be parsed as boolean."
+    required: true
+    default: "true"
 
 runs:
   using: "docker"
   image: "Dockerfile"
   args:
     - ${{ inputs.root_directory }}
+    - ${{ inputs.expand_result }}

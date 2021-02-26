@@ -23,8 +23,12 @@ def main():
     argument_table = {k.lower(): os.environ[k] for k in os.environ if not k.lower().startswith("github")}
     result = measure.measure(scanning_directory, argument_table)
 
+    open_auto = True
+    if len(sys.argv) > 2 and sys.argv[2].lower() in ["true", "false"]:
+        open_auto = (sys.argv[2].lower() == "true")
+
     print()
-    print(generate_report_message(root_dir, result))
+    print(generate_report_message(root_dir, result, open_auto))
 
 
 if __name__ == '__main__':

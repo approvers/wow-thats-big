@@ -37,7 +37,7 @@ def generate_tag(file_path, text, anchor=False):
     return f"<a href='#{tag}'>{text}</a>"
 
 
-def __generate_report_message(root_dir: str, property: Optional[List[BigFileProperty]]):
+def __generate_report_message(root_dir: str, property: Optional[List[BigFileProperty]], open_auto: bool):
     if property is None:
         return "" \
                ":boom: 判定に失敗しました!! (おそらくバグです)\n" \
@@ -54,7 +54,7 @@ def __generate_report_message(root_dir: str, property: Optional[List[BigFileProp
         [f"- {generate_tag(x.path, f'`{normalize_path(x.path, root_dir)}`')}" for x in property]
     )
 
-    report_text += "\n## 詳細\n<details>\n"
+    report_text += f"\n## 詳細\n<details{' open' if open_auto else ''}>\n"
     for file in property:
         report_text += f"\n{generate_tag(file.path, f'### `{normalize_path(file.path, root_dir)}`', True)}\n"
 
@@ -71,9 +71,9 @@ def __generate_report_message(root_dir: str, property: Optional[List[BigFileProp
     return report_text
 
 
-def generate_report_message(root_dir: str, property: Optional[List[BigFileProperty]]):
+def generate_report_message(root_dir: str, property: Optional[List[BigFileProperty]], open_auto: bool):
     return "" \
-           f"{ __generate_report_message(root_dir, property)}\n" \
+           f"{ __generate_report_message(root_dir, property, open_auto)}\n" \
            f"-----------------------\n" \
            f"{datetime.now().strftime('%Y/%m/%d %H:%M:%S.%f')} に生成完了しました\n" \
            f"By: https://github.com/approvers/wow-thats-big"
