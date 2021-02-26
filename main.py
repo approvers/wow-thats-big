@@ -17,7 +17,7 @@ def comment_to_github(text):
         owner, repo = os.environ["GITHUB_REPOSITORY"].split("/")
         commit = "--- pull request ---"
         pr = -1
-        if event == "commit":
+        if event == "push":
             commit = os.environ["GITHUB_SHA"]
         elif event == "pull_request":
             pr = int(os.environ["GITHUB_REF"].split("/")[2])
