@@ -7,6 +7,7 @@ from src import measure
 from src.report import generate_report_message
 
 def comment_to_github(text):
+    print("Fetching environment variables...")
     try:
         token = os.environ["INPUT_TOKEN"]
         event = os.environ["GITHUB_EVENT_NAME"]
@@ -15,6 +16,7 @@ def comment_to_github(text):
         owner, repo = os.environ["GITHUB_REPOSITORY"].split("/")
         commit = "--- pull request ---"
         pr = -1
+        print(f"Event is {event}.")
         if event == "commit":
             commit = os.environ["GITHUB_SHA"]
         elif event == "pull_request":
@@ -27,7 +29,7 @@ def comment_to_github(text):
         "Accept": "application/vnd.github.v3+json"
     }
 
-    if event == "commit":
+    if event == "push":
         requests.post(
             f"{api_root}/repos/{owner}/{repo}/commits/{commit}/comments",
             {"body": text},
@@ -39,6 +41,8 @@ def comment_to_github(text):
             {"body": text},
             headers=header
         )
+    else:
+        print("Unknown event; skipping request.")
 
 
 def main():
@@ -66,6 +70,7 @@ def main():
 
     text = generate_report_message(root_dir, result, open_auto)
     if "CI" in os.environ and os.environ["CI"] == "true":
+        print("Running on the CI - Commenting to the GitHub.")
         comment_to_github(text)
     else:
         print()
