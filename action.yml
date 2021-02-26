@@ -11,7 +11,7 @@ inputs:
     required: true
     default: "true"
   token:
-    description: "The token to comment to the pull request or commit. Usually '${{ secrets.GITHUB_TOKEN }}' is appropriate as the value."
+    description: "The token to comment to the pull request or commit."
     required: true
 
 runs:
