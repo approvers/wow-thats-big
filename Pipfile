@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 lizard = "*"
 octokitpy = "*"
+requests = "*"
 
 [dev-packages]
 
